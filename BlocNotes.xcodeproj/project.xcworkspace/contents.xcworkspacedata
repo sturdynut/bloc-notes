@@ -2,6 +2,6 @@
 <Workspace
    version = "1.0">
    <FileRef
-      location = "self:bloc-notes.xcodeproj">
+      location = "self:BlocNotes.xcodeproj">
    </FileRef>
 </Workspace>
