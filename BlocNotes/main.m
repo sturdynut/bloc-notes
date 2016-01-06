@@ -1,8 +1,8 @@
 //
 //  main.m
-//  bloc-notes
+//  BlocNotes
 //
-//  Created by Matti Salokangas on 12/29/15.
+//  Created by Matti Salokangas on 12/30/15.
 //  Copyright © 2015 Sturdy Nut. All rights reserved.
 //
 

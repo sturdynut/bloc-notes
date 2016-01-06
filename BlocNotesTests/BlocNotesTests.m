@@ -1,18 +1,18 @@
 //
-//  bloc_notesTests.m
-//  bloc-notesTests
+//  BlocNotesTests.m
+//  BlocNotesTests
 //
-//  Created by Matti Salokangas on 12/29/15.
+//  Created by Matti Salokangas on 12/30/15.
 //  Copyright © 2015 Sturdy Nut. All rights reserved.
 //
 
 #import <XCTest/XCTest.h>
 
-@interface bloc_notesTests : XCTestCase
+@interface BlocNotesTests : XCTestCase
 
 @end
 
-@implementation bloc_notesTests
+@implementation BlocNotesTests
 
 - (void)setUp {
     [super setUp];
