@@ -17,6 +17,7 @@
 		49A6575B1C34DF5B0089EE30 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 49A657591C34DF5B0089EE30 /* LaunchScreen.storyboard */; };
 		49A657661C34DF5B0089EE30 /* BlocNotesTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 49A657651C34DF5B0089EE30 /* BlocNotesTests.m */; };
 		49A657711C34DF5B0089EE30 /* BlocNotesUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = 49A657701C34DF5B0089EE30 /* BlocNotesUITests.m */; };
+		49A6577F1C34E1200089EE30 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 49A6577E1C34E1200089EE30 /* CoreData.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -56,6 +57,7 @@
 		49A6576C1C34DF5B0089EE30 /* BlocNotesUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = BlocNotesUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		49A657701C34DF5B0089EE30 /* BlocNotesUITests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BlocNotesUITests.m; sourceTree = "<group>"; };
 		49A657721C34DF5B0089EE30 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		49A6577E1C34E1200089EE30 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -63,6 +65,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				49A6577F1C34E1200089EE30 /* CoreData.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -86,6 +89,7 @@
 		49A657391C34DF5B0089EE30 = {
 			isa = PBXGroup;
 			children = (
+				49A6577E1C34E1200089EE30 /* CoreData.framework */,
 				49A657441C34DF5B0089EE30 /* BlocNotes */,
 				49A657641C34DF5B0089EE30 /* BlocNotesTests */,
 				49A6576F1C34DF5B0089EE30 /* BlocNotesUITests */,
@@ -506,6 +510,7 @@
 				49A657771C34DF5B0089EE30 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		49A657781C34DF5B0089EE30 /* Build configuration list for PBXNativeTarget "BlocNotesTests" */ = {
 			isa = XCConfigurationList;
@@ -514,6 +519,7 @@
 				49A6577A1C34DF5B0089EE30 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		49A6577B1C34DF5B0089EE30 /* Build configuration list for PBXNativeTarget "BlocNotesUITests" */ = {
 			isa = XCConfigurationList;
@@ -522,6 +528,7 @@
 				49A6577D1C34DF5B0089EE30 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 

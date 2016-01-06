@@ -8,10 +8,21 @@
 
 #import <UIKit/UIKit.h>
 
+@protocol DetailViewDelegate <NSObject>
+
+@required
+- (void) needsSaving;
+
+@end
+
 @interface DetailViewController : UIViewController
 
+@property (weak, nonatomic) id <DetailViewDelegate> delegate;
+
 @property (strong, nonatomic) id detailItem;
-@property (weak, nonatomic) IBOutlet UILabel *detailDescriptionLabel;
+
+@property (weak, nonatomic) IBOutlet UITextField *noteTitleField;
+@property (weak, nonatomic) IBOutlet UITextView *noteBodyField;
 
 @end
 
