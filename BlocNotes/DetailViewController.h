@@ -23,6 +23,8 @@
 
 @property (weak, nonatomic) IBOutlet UITextField *noteTitleField;
 @property (weak, nonatomic) IBOutlet UITextView *noteBodyField;
+@property (weak, nonatomic) IBOutlet UILabel *createdOnLabel;
+@property (weak, nonatomic) IBOutlet UILabel *modifiedOnLabel;
 
 @end
 

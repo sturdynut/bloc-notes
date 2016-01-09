@@ -8,8 +8,10 @@
 
 #import "DetailViewController.h"
 
-@interface DetailViewController ()
+@interface DetailViewController () <UIGestureRecognizerDelegate>
 
+@property (nonatomic, strong) UILongPressGestureRecognizer *longGestureRecognizerForTitle;
+@property (nonatomic, strong) UILongPressGestureRecognizer *longGestureRecognizerForBody;
 
 @end
 
@@ -27,10 +29,47 @@
 }
 
 - (void)configureView {
+    self.longGestureRecognizerForTitle = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(shareTitle:)];
+    self.longGestureRecognizerForTitle.delegate = self;
+    [self.noteTitleField addGestureRecognizer:self.longGestureRecognizerForTitle];
+    
+    self.longGestureRecognizerForBody = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(shareBody:)];
+    self.longGestureRecognizerForBody.delegate = self;
+    [self.noteBodyField addGestureRecognizer:self.longGestureRecognizerForBody];
+    
     // Update the user interface for the detail item.
     if (self.detailItem) {
         self.noteTitleField.text = [[self.detailItem valueForKey:@"title"] description];
         self.noteBodyField.text = [[self.detailItem valueForKey:@"body"] description];
+        
+        NSDate *createdOn = [self.detailItem  valueForKey:@"createdOn"];
+        NSDate *modifiedOn = [self.detailItem valueForKey:@"modifiedOn"];
+        
+        NSDateFormatter *createdOnFormatter = [[NSDateFormatter alloc] init];
+        NSDateFormatter *modifiedOnFormatter = [[NSDateFormatter alloc] init];
+        
+        NSString *preciseFormatString = @"MM/dd/yyyy h:mm a";
+        NSString *recentFormatString = @"E h:mm a";
+        
+        NSString *createdOnFormatString = preciseFormatString;
+        NSString *modifiedOnFormatString = preciseFormatString;
+        
+        int daysSinceCreated = [self daysFromToday:createdOn];
+        int daysSinceModified = [self daysFromToday:modifiedOn];
+
+        if (daysSinceCreated < 8) {
+            createdOnFormatString = recentFormatString;
+        }
+        
+        if (daysSinceModified < 8) {
+            modifiedOnFormatString = recentFormatString;
+        }
+        
+        [createdOnFormatter setDateFormat:createdOnFormatString];
+        [modifiedOnFormatter setDateFormat:modifiedOnFormatString];
+        
+        self.createdOnLabel.text = [NSString stringWithFormat:@"%@", [createdOnFormatter stringFromDate:createdOn]];
+        self.modifiedOnLabel.text = [NSString stringWithFormat:@"%@", [modifiedOnFormatter stringFromDate:modifiedOn]];
     }
 }
 
@@ -58,6 +97,43 @@
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+# pragma mark Gestures
+
+- (BOOL) gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldRecognizeSimultaneouslyWithGestureRecognizer:(UIGestureRecognizer *)otherGestureRecognizer {
+    return YES;
+}
+
+- (void) shareTitle:(UILongPressGestureRecognizer *)sender {
+    if (sender.state == UIGestureRecognizerStateBegan) {
+        [self showSharingMenu:@[[self.detailItem valueForKey:@"title"]]];
+    }
+}
+
+- (void) shareBody:(UILongPressGestureRecognizer *)sender {
+    if (sender.state == UIGestureRecognizerStateBegan) {
+        [self showSharingMenu:@[[self.detailItem valueForKey:@"body"]]];
+    }
+}
+
+# pragma mark Privates
+
+- (void) showSharingMenu:(NSArray *)itemsToShare {
+    UIActivityViewController *activityVC = [[UIActivityViewController alloc] initWithActivityItems:itemsToShare applicationActivities:nil];
+    [self presentViewController:activityVC animated:YES completion:nil];
+}
+
+// http://stackoverflow.com/questions/4739483/number-of-days-between-two-nsdates
+- (int)daysFromToday:(NSDate *)date {
+    NSCalendar *calendar = [[NSCalendar alloc] initWithCalendarIdentifier:NSCalendarIdentifierGregorian];
+    NSInteger today=[calendar ordinalityOfUnit:NSCalendarUnitDay
+                                           inUnit:NSCalendarUnitEra
+                                          forDate:[NSDate date]];
+    NSInteger pastDate=[calendar ordinalityOfUnit:NSCalendarUnitDay
+                                         inUnit:NSCalendarUnitEra
+                                        forDate:date];
+    return abs(pastDate - today);
 }
 
 @end
