@@ -33,8 +33,8 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ofn-vf-Jw8">
-                                <rect key="frame" x="20" y="127" width="560" height="453"/>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ofn-vf-Jw8">
+                                <rect key="frame" x="20" y="127" width="560" height="436"/>
                                 <fontDescription key="fontDescription" name="HelveticaNeue-Thin" family="Helvetica Neue" pointSize="17"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                             </textView>
@@ -46,21 +46,68 @@
                                 <fontDescription key="fontDescription" name="HelveticaNeue-Thin" family="Helvetica Neue" pointSize="27"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Created On:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="VNs-Eo-Krc">
+                                <rect key="frame" x="20" y="556" width="61" height="21"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="61" id="5Gb-MY-Zek"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="HelveticaNeue-Thin" family="Helvetica Neue" pointSize="10"/>
+                                <color key="textColor" red="0.3459793244949495" green="0.3459793244949495" blue="0.3459793244949495" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="1/1/2000 6:30 PM" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nw9-gv-mPf">
+                                <rect key="frame" x="20" y="571" width="88" height="21"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="103" id="djH-9d-kLD"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="10"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="1/1/2000 6:30 PM" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="YzQ-ge-hhM">
+                                <rect key="frame" x="477" y="571" width="103" height="21"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="103" id="qkK-Ai-ANH"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="10"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Last Modified:" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="W8T-9Y-ibL">
+                                <rect key="frame" x="519" y="556" width="61" height="21"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="61" id="4SR-wK-ERO"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="HelveticaNeue-Thin" family="Helvetica Neue" pointSize="10"/>
+                                <color key="textColor" red="0.3459793244949495" green="0.3459793244949495" blue="0.3459793244949495" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="Ifc-IX-B9D" firstAttribute="leading" secondItem="svH-Pt-448" secondAttribute="leadingMargin" id="5CK-wg-Yoc"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="YzQ-ge-hhM" secondAttribute="trailing" id="7NB-Yu-GZK"/>
+                            <constraint firstItem="GAO-Cl-Wes" firstAttribute="top" secondItem="YzQ-ge-hhM" secondAttribute="bottom" constant="8" id="F8f-o8-NYJ"/>
+                            <constraint firstItem="W8T-9Y-ibL" firstAttribute="top" secondItem="ofn-vf-Jw8" secondAttribute="bottom" id="Fsp-pS-qWJ"/>
+                            <constraint firstItem="YzQ-ge-hhM" firstAttribute="top" secondItem="W8T-9Y-ibL" secondAttribute="bottom" id="TXm-JD-lhm"/>
+                            <constraint firstItem="nw9-gv-mPf" firstAttribute="top" secondItem="VNs-Eo-Krc" secondAttribute="bottom" id="UGt-hC-3I7"/>
                             <constraint firstAttribute="trailingMargin" secondItem="Ifc-IX-B9D" secondAttribute="trailing" id="YmQ-iA-XwX"/>
+                            <constraint firstItem="GAO-Cl-Wes" firstAttribute="top" secondItem="nw9-gv-mPf" secondAttribute="bottom" constant="8" id="ZTE-D9-9cn"/>
+                            <constraint firstAttribute="leadingMargin" secondItem="nw9-gv-mPf" secondAttribute="leading" id="b7f-nc-6Xt"/>
                             <constraint firstItem="ofn-vf-Jw8" firstAttribute="top" secondItem="Ifc-IX-B9D" secondAttribute="bottom" constant="8" id="fC0-IJ-lPT"/>
+                            <constraint firstItem="VNs-Eo-Krc" firstAttribute="top" secondItem="ofn-vf-Jw8" secondAttribute="bottom" id="jca-Zs-TUb"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="W8T-9Y-ibL" secondAttribute="trailing" id="kVC-OP-fgd"/>
+                            <constraint firstAttribute="leadingMargin" secondItem="VNs-Eo-Krc" secondAttribute="leading" id="oIG-6B-aot"/>
                             <constraint firstAttribute="leadingMargin" secondItem="ofn-vf-Jw8" secondAttribute="leading" id="pgA-dO-irx"/>
                             <constraint firstItem="ofn-vf-Jw8" firstAttribute="width" secondItem="Ifc-IX-B9D" secondAttribute="width" id="qmN-ic-N4n"/>
-                            <constraint firstItem="GAO-Cl-Wes" firstAttribute="top" secondItem="ofn-vf-Jw8" secondAttribute="bottom" constant="20" id="rzH-36-lqa"/>
                             <constraint firstItem="Ifc-IX-B9D" firstAttribute="top" secondItem="SYR-Wa-9uf" secondAttribute="bottom" id="vrg-yw-dB2"/>
                         </constraints>
                     </view>
                     <toolbarItems/>
                     <navigationItem key="navigationItem" title="Detail" id="mOI-FS-AaM"/>
                     <connections>
+                        <outlet property="createdOnLabel" destination="nw9-gv-mPf" id="tJC-88-jEI"/>
+                        <outlet property="modifiedOnLabel" destination="YzQ-ge-hhM" id="31U-6P-TNp"/>
                         <outlet property="noteBodyField" destination="ofn-vf-Jw8" id="8HZ-xh-rTO"/>
                         <outlet property="noteTitleField" destination="Ifc-IX-B9D" id="FBj-TR-gDO"/>
                     </connections>
