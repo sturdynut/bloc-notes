@@ -10,8 +10,11 @@
 
 @interface DetailViewController () <UIGestureRecognizerDelegate>
 
-@property (nonatomic, strong) UILongPressGestureRecognizer *longGestureRecognizerForTitle;
-@property (nonatomic, strong) UILongPressGestureRecognizer *longGestureRecognizerForBody;
+@property (strong, nonatomic) UILongPressGestureRecognizer *longGestureRecognizerForTitle;
+@property (strong, nonatomic) UILongPressGestureRecognizer *longGestureRecognizerForBody;
+//@todo There is a better way...
+@property (strong, nonatomic) NSString *originalDetailItemTitle;
+@property (strong, nonatomic) NSString *originalDetailItemBody;
 
 @end
 
@@ -22,6 +25,9 @@
 - (void)setDetailItem:(id)newDetailItem {
     if (_detailItem != newDetailItem) {
         _detailItem = newDetailItem;
+        
+        self.originalDetailItemTitle = [[self.detailItem valueForKey:@"title"] description];
+        self.originalDetailItemBody = [[self.detailItem valueForKey:@"body"] description];
             
         // Update the view.
         [self configureView];
@@ -85,13 +91,13 @@
 - (void)viewWillDisappear:(BOOL)animated {
     [super viewWillDisappear:animated];
     
-    // @todo:  This feels dirty, can I tie these UITextFields directly to my object?
     [self.detailItem setValue:self.noteTitleField.text forKey:@"title"];
     [self.detailItem setValue:self.noteBodyField.text forKey:@"body"];
-    [self.detailItem setValue:[NSDate date] forKey:@"modifiedOn"];
     
-    // Using delegation here...not sure if this is the best way.
-    [self.delegate needsSaving];
+    if ([self hasChanges]) {
+        [self.detailItem setValue:[NSDate date] forKey:@"modifiedOn"];
+        [self.delegate needsSaving];
+    }
 }
 
 - (void)didReceiveMemoryWarning {
@@ -134,6 +140,14 @@
                                          inUnit:NSCalendarUnitEra
                                         forDate:date];
     return abs(pastDate - today);
+}
+
+- (BOOL) hasChanges {
+    NSString *title = [[self.detailItem valueForKey:@"title"] description];
+    NSString *body = [[self.detailItem valueForKey:@"body"] description];
+    
+    return ![title isEqualToString:self.originalDetailItemTitle]
+    || ![body isEqualToString:self.originalDetailItemBody];
 }
 
 @end
