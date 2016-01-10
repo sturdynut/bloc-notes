@@ -9,20 +9,40 @@
 #import "MasterViewController.h"
 #import "DetailViewController.h"
 
-@interface MasterViewController () <DetailViewDelegate>
-
+@interface MasterViewController () <DetailViewDelegate, UISearchBarDelegate, UISearchResultsUpdating>
+@property (strong, nonatomic) NSArray *searchResults;
+@property (strong, nonatomic) NSFetchRequest *searchRequest;
+@property (strong, nonatomic) UISearchController *searchController;
 @end
 
 @implementation MasterViewController
 
+static NSString *segueShowDetail = @"showDetail";
+static NSString *entityName = @"Note";
+static NSString *defaultSort = @"modifiedOn";
+
+#pragma mark - View Events
+
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view, typically from a nib.
+
     self.navigationItem.leftBarButtonItem = self.editButtonItem;
 
     UIBarButtonItem *addButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(insertNewObject:)];
     self.navigationItem.rightBarButtonItem = addButton;
+    
     self.detailViewController = (DetailViewController *)[[self.splitViewController.viewControllers lastObject] topViewController];
+    
+    self.searchController = [[UISearchController alloc] initWithSearchResultsController:nil];
+    self.searchController.searchResultsUpdater = self;
+    self.searchController.dimsBackgroundDuringPresentation = NO;
+    self.searchController.searchBar.delegate = self;
+    
+    self.tableView.tableHeaderView = self.searchController.searchBar;
+    
+    self.definesPresentationContext = YES;
+    
+    [self.searchController.searchBar sizeToFit];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -31,30 +51,10 @@
 }
 
 - (void)didReceiveMemoryWarning {
+    self.searchRequest = nil;
+    
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
-}
-
-- (void)insertNewObject:(id)sender {
-    NSManagedObjectContext *context = [self.fetchedResultsController managedObjectContext];
-    NSEntityDescription *entity = [[self.fetchedResultsController fetchRequest] entity];
-    NSManagedObject *newManagedObject = [NSEntityDescription insertNewObjectForEntityForName:[entity name] inManagedObjectContext:context];
-        
-    // If appropriate, configure the new managed object.
-    // Normally you should use accessor methods, but using KVC here avoids the need to add a custom class to the template.
-    [newManagedObject setValue:[NSDate date] forKey:@"createdOn"];
-    [newManagedObject setValue:[NSDate date] forKey:@"modifiedOn"];
-    [newManagedObject setValue:@"New Note" forKey:@"title"];
-    [newManagedObject setValue:@"Write your note here..." forKey:@"body"];
-    
-    // Save the context.
-    NSError *error = nil;
-    if (![context save:&error]) {
-        // Replace this implementation with code to handle the error appropriately.
-        // abort() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development.
-        NSLog(@"Unresolved error %@, %@", error, [error userInfo]);
-        abort();
-    }
 }
 
 #pragma mark - DetailViewDelegate
@@ -70,9 +70,18 @@
 #pragma mark - Segues
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    if ([[segue identifier] isEqualToString:@"showDetail"]) {
-        NSIndexPath *indexPath = [self.tableView indexPathForSelectedRow];
-        NSManagedObject *object = [[self fetchedResultsController] objectAtIndexPath:indexPath];
+    
+    if ([[segue identifier] isEqualToString:segueShowDetail]) {
+        NSIndexPath *indexPath = [self.tableView indexPathForCell:sender];
+        
+        NSManagedObject *object = nil;
+        if (self.searchController.active) {
+            object = [self.searchResults objectAtIndex:indexPath.row];
+        }
+        else {
+            object = [[self fetchedResultsController] objectAtIndexPath:indexPath];
+        }
+        
         DetailViewController *controller = (DetailViewController *)[[segue destinationViewController] topViewController];
         [controller setDetailItem:object];
         controller.delegate = self;
@@ -84,10 +93,18 @@
 #pragma mark - Table View
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
+    if (self.searchController.active) {
+        return 1;
+    }
+    
     return [[self.fetchedResultsController sections] count];
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+    if (self.searchController.active) {
+        return [self.searchResults count];
+    }
+    
     id <NSFetchedResultsSectionInfo> sectionInfo = [self.fetchedResultsController sections][section];
     return [sectionInfo numberOfObjects];
 }
@@ -119,11 +136,76 @@
 }
 
 - (void)configureCell:(UITableViewCell *)cell atIndexPath:(NSIndexPath *)indexPath {
-    NSManagedObject *object = [self.fetchedResultsController objectAtIndexPath:indexPath];
+    NSManagedObject *object = nil;
+    
+    if (self.searchController.active) {
+        object = [self.searchResults objectAtIndex:indexPath.row];
+    }
+    else {
+        object = [self.fetchedResultsController objectAtIndexPath:indexPath];
+    }
+    
     cell.textLabel.text = [[object valueForKey:@"title"] description];
 }
 
-#pragma mark - Fetched results controller
+
+#pragma mark - Search
+-(void) updateSearchResultsForSearchController:(UISearchController *)searchController {
+    NSString *searchTerm = self.searchController.searchBar.text;
+    
+    [self searchNotes:searchTerm];
+    [self.tableView reloadData];
+}
+
+- (NSFetchRequest *)searchRequest {
+    if (_searchRequest == nil) {
+        _searchRequest = [[NSFetchRequest alloc] init];
+        NSEntityDescription *entity = [NSEntityDescription entityForName:entityName inManagedObjectContext:self.managedObjectContext];
+        [_searchRequest setEntity:entity];
+        
+        NSSortDescriptor *sort = [[NSSortDescriptor alloc] initWithKey:@"title" ascending:YES];
+        NSArray *sortDescriptors = [NSArray arrayWithObjects:sort, nil];
+        [_searchRequest setSortDescriptors:sortDescriptors];
+    }
+    
+    return _searchRequest;
+}
+
+- (void) searchNotes:(NSString *)searchTerm {
+    if (self.managedObjectContext) {
+        NSString *predicateFormat = @"(title BEGINSWITH[cd] %@) OR (body CONTAINS[cd] %@)";
+        
+        NSPredicate *predicate = [NSPredicate predicateWithFormat:predicateFormat, searchTerm, searchTerm];
+        [self.searchRequest setPredicate:predicate];
+        
+        NSError *error = nil;
+        self.searchResults = [self.managedObjectContext executeFetchRequest:self.searchRequest error:&error];
+    }
+}
+
+#pragma mark - Core Data
+
+- (void)insertNewObject:(id)sender {
+    NSManagedObjectContext *context = [self.fetchedResultsController managedObjectContext];
+    NSEntityDescription *entity = [[self.fetchedResultsController fetchRequest] entity];
+    NSManagedObject *newManagedObject = [NSEntityDescription insertNewObjectForEntityForName:[entity name] inManagedObjectContext:context];
+    
+    // If appropriate, configure the new managed object.
+    // Normally you should use accessor methods, but using KVC here avoids the need to add a custom class to the template.
+    [newManagedObject setValue:[NSDate date] forKey:@"createdOn"];
+    [newManagedObject setValue:[NSDate date] forKey:@"modifiedOn"];
+    [newManagedObject setValue:@"New Note" forKey:@"title"];
+    [newManagedObject setValue:@"Write your note here..." forKey:@"body"];
+    
+    // Save the context.
+    NSError *error = nil;
+    if (![context save:&error]) {
+        // Replace this implementation with code to handle the error appropriately.
+        // abort() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development.
+        NSLog(@"Unresolved error %@, %@", error, [error userInfo]);
+        abort();
+    }
+}
 
 - (NSFetchedResultsController *)fetchedResultsController
 {
@@ -133,14 +215,14 @@
     
     NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
     // Edit the entity name as appropriate.
-    NSEntityDescription *entity = [NSEntityDescription entityForName:@"Note" inManagedObjectContext:self.managedObjectContext];
+    NSEntityDescription *entity = [NSEntityDescription entityForName:entityName inManagedObjectContext:self.managedObjectContext];
     [fetchRequest setEntity:entity];
     
     // Set the batch size to a suitable number.
     [fetchRequest setFetchBatchSize:20];
     
     // Edit the sort key as appropriate.
-    NSSortDescriptor *sortDescriptor = [[NSSortDescriptor alloc] initWithKey:@"createdOn" ascending:NO];
+    NSSortDescriptor *sortDescriptor = [[NSSortDescriptor alloc] initWithKey:defaultSort ascending:NO];
 
     [fetchRequest setSortDescriptors:@[sortDescriptor]];
     

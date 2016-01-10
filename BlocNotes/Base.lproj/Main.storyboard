@@ -175,8 +175,19 @@
                             </button>
                         </barButtonItem>
                     </navigationItem>
+                    <connections>
+                        <outlet property="searchDisplayController" destination="ytN-yX-8r2" id="HKG-I3-Z8C"/>
+                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Rux-fX-hf1" sceneMemberID="firstResponder"/>
+                <searchDisplayController id="ytN-yX-8r2">
+                    <connections>
+                        <outlet property="delegate" destination="7bK-jq-Zjz" id="LIq-eQ-Aes"/>
+                        <outlet property="searchContentsController" destination="7bK-jq-Zjz" id="Fey-56-IH9"/>
+                        <outlet property="searchResultsDataSource" destination="7bK-jq-Zjz" id="zbf-eP-oqf"/>
+                        <outlet property="searchResultsDelegate" destination="7bK-jq-Zjz" id="nSM-CQ-zdW"/>
+                    </connections>
+                </searchDisplayController>
             </objects>
             <point key="canvasLocation" x="709" y="-630"/>
         </scene>
