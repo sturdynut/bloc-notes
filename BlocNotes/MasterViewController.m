@@ -20,6 +20,13 @@
 static NSString *segueShowDetail = @"showDetail";
 static NSString *entityName = @"Note";
 static NSString *defaultSort = @"modifiedOn";
+static NSString *titleKey = @"title";
+static NSString *bodyKey = @"body";
+static NSString *modifiedOnKey = @"modifiedOn";
+static NSString *createdOnKey = @"createdOn";
+static NSString *cellId = @"Cell";
+static NSString *defaultNoteTitle = @"New Note";
+static NSString *defaultNoteBody = @"Write your note here...";
 
 #pragma mark - View Events
 
@@ -110,7 +117,7 @@ static NSString *defaultSort = @"modifiedOn";
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"Cell" forIndexPath:indexPath];
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellId forIndexPath:indexPath];
     [self configureCell:cell atIndexPath:indexPath];
     return cell;
 }
@@ -145,7 +152,7 @@ static NSString *defaultSort = @"modifiedOn";
         object = [self.fetchedResultsController objectAtIndexPath:indexPath];
     }
     
-    cell.textLabel.text = [[object valueForKey:@"title"] description];
+    cell.textLabel.text = [[object valueForKey:titleKey] description];
 }
 
 
@@ -163,7 +170,7 @@ static NSString *defaultSort = @"modifiedOn";
         NSEntityDescription *entity = [NSEntityDescription entityForName:entityName inManagedObjectContext:self.managedObjectContext];
         [_searchRequest setEntity:entity];
         
-        NSSortDescriptor *sort = [[NSSortDescriptor alloc] initWithKey:@"title" ascending:YES];
+        NSSortDescriptor *sort = [[NSSortDescriptor alloc] initWithKey:titleKey ascending:YES];
         NSArray *sortDescriptors = [NSArray arrayWithObjects:sort, nil];
         [_searchRequest setSortDescriptors:sortDescriptors];
     }
@@ -192,10 +199,10 @@ static NSString *defaultSort = @"modifiedOn";
     
     // If appropriate, configure the new managed object.
     // Normally you should use accessor methods, but using KVC here avoids the need to add a custom class to the template.
-    [newManagedObject setValue:[NSDate date] forKey:@"createdOn"];
-    [newManagedObject setValue:[NSDate date] forKey:@"modifiedOn"];
-    [newManagedObject setValue:@"New Note" forKey:@"title"];
-    [newManagedObject setValue:@"Write your note here..." forKey:@"body"];
+    [newManagedObject setValue:[NSDate date] forKey:createdOnKey];
+    [newManagedObject setValue:[NSDate date] forKey:modifiedOnKey];
+    [newManagedObject setValue:defaultNoteTitle forKey:titleKey];
+    [newManagedObject setValue:defaultNoteBody forKey:bodyKey];
     
     // Save the context.
     NSError *error = nil;
