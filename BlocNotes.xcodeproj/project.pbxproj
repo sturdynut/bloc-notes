@@ -18,6 +18,8 @@
 		49A657661C34DF5B0089EE30 /* BlocNotesTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 49A657651C34DF5B0089EE30 /* BlocNotesTests.m */; };
 		49A657711C34DF5B0089EE30 /* BlocNotesUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = 49A657701C34DF5B0089EE30 /* BlocNotesUITests.m */; };
 		49A6577F1C34E1200089EE30 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 49A6577E1C34E1200089EE30 /* CoreData.framework */; };
+		49BA64C11C4C3C1400681090 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 49BA64BF1C4C3C1400681090 /* Localizable.strings */; };
+		49BA64C41C4C3C8C00681090 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 49BA64C31C4C3C8C00681090 /* Localizable.strings */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -58,6 +60,12 @@
 		49A657701C34DF5B0089EE30 /* BlocNotesUITests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BlocNotesUITests.m; sourceTree = "<group>"; };
 		49A657721C34DF5B0089EE30 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		49A6577E1C34E1200089EE30 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
+		49BA64BB1C4C381500681090 /* es */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = es; path = es.lproj/Main.strings; sourceTree = "<group>"; };
+		49BA64BC1C4C381500681090 /* es */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = es; path = es.lproj/LaunchScreen.strings; sourceTree = "<group>"; };
+		49BA64BD1C4C3A0E00681090 /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/Main.strings; sourceTree = "<group>"; };
+		49BA64BE1C4C3A0E00681090 /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/LaunchScreen.strings; sourceTree = "<group>"; };
+		49BA64C01C4C3C1400681090 /* es */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = es; path = BlocNotes/es.lproj/Localizable.strings; sourceTree = "<group>"; };
+		49BA64C31C4C3C8C00681090 /* Localizable.strings */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; path = Localizable.strings; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -89,6 +97,8 @@
 		49A657391C34DF5B0089EE30 = {
 			isa = PBXGroup;
 			children = (
+				49BA64C51C4C3C9000681090 /* fr */,
+				49BA64C21C4C3C4100681090 /* es */,
 				49A6577E1C34E1200089EE30 /* CoreData.framework */,
 				49A657441C34DF5B0089EE30 /* BlocNotes */,
 				49A657641C34DF5B0089EE30 /* BlocNotesTests */,
@@ -150,6 +160,22 @@
 				49A657721C34DF5B0089EE30 /* Info.plist */,
 			);
 			path = BlocNotesUITests;
+			sourceTree = "<group>";
+		};
+		49BA64C21C4C3C4100681090 /* es */ = {
+			isa = PBXGroup;
+			children = (
+				49BA64BF1C4C3C1400681090 /* Localizable.strings */,
+			);
+			name = es;
+			sourceTree = "<group>";
+		};
+		49BA64C51C4C3C9000681090 /* fr */ = {
+			isa = PBXGroup;
+			children = (
+				49BA64C31C4C3C8C00681090 /* Localizable.strings */,
+			);
+			name = fr;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -237,6 +263,7 @@
 			knownRegions = (
 				en,
 				Base,
+				es,
 			);
 			mainGroup = 49A657391C34DF5B0089EE30;
 			productRefGroup = 49A657431C34DF5B0089EE30 /* Products */;
@@ -255,7 +282,9 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				49BA64C41C4C3C8C00681090 /* Localizable.strings in Resources */,
 				49A6575B1C34DF5B0089EE30 /* LaunchScreen.storyboard in Resources */,
+				49BA64C11C4C3C1400681090 /* Localizable.strings in Resources */,
 				49A657581C34DF5B0089EE30 /* Assets.xcassets in Resources */,
 				49A657561C34DF5B0089EE30 /* Main.storyboard in Resources */,
 			);
@@ -326,6 +355,8 @@
 			isa = PBXVariantGroup;
 			children = (
 				49A657551C34DF5B0089EE30 /* Base */,
+				49BA64BB1C4C381500681090 /* es */,
+				49BA64BD1C4C3A0E00681090 /* fr */,
 			);
 			name = Main.storyboard;
 			sourceTree = "<group>";
@@ -334,8 +365,18 @@
 			isa = PBXVariantGroup;
 			children = (
 				49A6575A1C34DF5B0089EE30 /* Base */,
+				49BA64BC1C4C381500681090 /* es */,
+				49BA64BE1C4C3A0E00681090 /* fr */,
 			);
 			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+		49BA64BF1C4C3C1400681090 /* Localizable.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				49BA64C01C4C3C1400681090 /* es */,
+			);
+			name = Localizable.strings;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */
@@ -425,6 +466,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = "Brand Assets";
 				INFOPLIST_FILE = BlocNotes/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.sturdynut.BlocNotes;
@@ -436,6 +478,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = "Brand Assets";
 				INFOPLIST_FILE = BlocNotes/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.sturdynut.BlocNotes;

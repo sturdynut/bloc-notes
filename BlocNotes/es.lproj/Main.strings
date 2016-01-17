@@ -1,0 +1,39 @@
+/* Class = "UITableViewController"; title = "Master"; ObjectID = "7bK-jq-Zjz"; */
+"7bK-jq-Zjz.title" = "Dominar";
+
+/* Class = "UILabel"; text = "Title"; ObjectID = "Arm-wq-HPj"; */
+"Arm-wq-HPj.text" = "Título";
+
+/* Class = "UITextField"; placeholder = "Title"; ObjectID = "Ifc-IX-B9D"; */
+"Ifc-IX-B9D.placeholder" = "Título";
+
+/* Class = "UIViewController"; title = "Detail"; ObjectID = "JEX-9P-axG"; */
+"JEX-9P-axG.title" = "Detalle";
+
+/* Class = "UINavigationController"; title = "Master"; ObjectID = "RMx-3f-FxP"; */
+"RMx-3f-FxP.title" = "Dominar";
+
+/* Class = "UILabel"; text = "Created On:"; ObjectID = "VNs-Eo-Krc"; */
+"VNs-Eo-Krc.text" = "Creado En:";
+
+/* Class = "UILabel"; text = "Last Modified:"; ObjectID = "W8T-9Y-ibL"; */
+"W8T-9Y-ibL.text" = "Última Modificación:";
+
+/* Class = "UILabel"; text = "1/1/2000 6:30 PM"; ObjectID = "YzQ-ge-hhM"; */
+"YzQ-ge-hhM.text" = "1/1/2000 6:30 PM";
+
+/* Class = "UINavigationItem"; title = "My Notes"; ObjectID = "Zdf-7t-Un8"; */
+"Zdf-7t-Un8.title" = "Mis Notas";
+
+/* Class = "UINavigationItem"; title = "Detail"; ObjectID = "mOI-FS-AaM"; */
+"mOI-FS-AaM.title" = "Detalle";
+
+/* Class = "UILabel"; text = "1/1/2000 6:30 PM"; ObjectID = "nw9-gv-mPf"; */
+"nw9-gv-mPf.text" = "1/1/2000 6:30 PM";
+
+/* No comment provided by engineer. */
+"New Note" = "Nueva nota";
+
+/* No comment provided by engineer. */
+"Write your note here..." = "Ecrire votre note ici...";
+

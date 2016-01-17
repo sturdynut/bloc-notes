@@ -25,14 +25,12 @@ static NSString *bodyKey = @"body";
 static NSString *modifiedOnKey = @"modifiedOn";
 static NSString *createdOnKey = @"createdOn";
 static NSString *cellId = @"Cell";
-static NSString *defaultNoteTitle = @"New Note";
-static NSString *defaultNoteBody = @"Write your note here...";
 
 #pragma mark - View Events
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-
+    
     self.navigationItem.leftBarButtonItem = self.editButtonItem;
 
     UIBarButtonItem *addButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(insertNewObject:)];
@@ -201,8 +199,8 @@ static NSString *defaultNoteBody = @"Write your note here...";
     // Normally you should use accessor methods, but using KVC here avoids the need to add a custom class to the template.
     [newManagedObject setValue:[NSDate date] forKey:createdOnKey];
     [newManagedObject setValue:[NSDate date] forKey:modifiedOnKey];
-    [newManagedObject setValue:defaultNoteTitle forKey:titleKey];
-    [newManagedObject setValue:defaultNoteBody forKey:bodyKey];
+    [newManagedObject setValue:NSLocalizedString(@"New Note", nil) forKey:titleKey];
+    [newManagedObject setValue:NSLocalizedString(@"Write your note here...", nil) forKey:bodyKey];
     
     // Save the context.
     NSError *error = nil;
