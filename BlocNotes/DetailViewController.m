@@ -14,7 +14,7 @@
 @property (strong, nonatomic) UILongPressGestureRecognizer *longGestureRecognizerForBody;
 @property (strong, nonatomic) UITapGestureRecognizer *tapGestureRecognizerForBody;
 @property (strong, nonatomic) UITapGestureRecognizer *tapGestureRecognizer;
-//@todo There is a better way...
+
 @property (strong, nonatomic) NSString *originalDetailItemTitle;
 @property (strong, nonatomic) NSString *originalDetailItemBody;
 
@@ -41,7 +41,7 @@ static NSString *recentFormatString = @"E h:mm a";
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-
+    
     self.longGestureRecognizerForTitle = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(shareTitle:)];
     self.longGestureRecognizerForTitle.delegate = self;
     [self.noteTitleField addGestureRecognizer:self.longGestureRecognizerForTitle];
@@ -86,6 +86,8 @@ static NSString *recentFormatString = @"E h:mm a";
         
         NSDateFormatter *createdOnFormatter = [[NSDateFormatter alloc] init];
         NSDateFormatter *modifiedOnFormatter = [[NSDateFormatter alloc] init];
+        [createdOnFormatter setLocale:[NSLocale currentLocale]];
+        [modifiedOnFormatter setLocale:[NSLocale currentLocale]];
         
         NSString *createdOnFormatString = preciseFormatString;
         NSString *modifiedOnFormatString = preciseFormatString;
@@ -104,8 +106,8 @@ static NSString *recentFormatString = @"E h:mm a";
         [createdOnFormatter setDateFormat:createdOnFormatString];
         [modifiedOnFormatter setDateFormat:modifiedOnFormatString];
         
-        self.createdOnLabel.text = [NSString stringWithFormat:@"%@", [createdOnFormatter stringFromDate:createdOn]];
-        self.modifiedOnLabel.text = [NSString stringWithFormat:@"%@", [modifiedOnFormatter stringFromDate:modifiedOn]];
+        self.createdOnValue.text = [NSString stringWithFormat:@"%@", [createdOnFormatter stringFromDate:createdOn]];
+        self.modifiedOnValue.text = [NSString stringWithFormat:@"%@", [modifiedOnFormatter stringFromDate:modifiedOn]];
     }
 }
 
